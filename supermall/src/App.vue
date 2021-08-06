@@ -4,7 +4,7 @@
 </template>
 
 <script>
-
+import {  } from "components/content/MianTabbar/MainTabbar";
 
 export default {
   name: 'App',
