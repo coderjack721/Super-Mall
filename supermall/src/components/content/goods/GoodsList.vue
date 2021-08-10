@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-      <GoodsListItem v-for="(item,ccc) in goods" :key="ccc" :goods-item="item"/>
+      <goods-list-item v-for="item in goods" :product="item" :key="item.id"/>
     <!-- {{goods}} -->
   </div>
   
@@ -20,7 +20,7 @@ export default {
                 return []
             }
         }
-    }
+    },
 }
 </script>
 
