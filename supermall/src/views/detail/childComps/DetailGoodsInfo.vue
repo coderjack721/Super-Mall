@@ -1,78 +1,47 @@
 <template>
   <div v-if="Object.keys(detailInfo).length !== 0" class="goods-info">
-      <div class="info-desc clear-fix">
-          <div class="start"></div>
-          <div class="desc">{{detailInfo.desc}}</div>
-          <div class="end"></div>
+    <div class="info-desc clear-fix">
+      <div class="start">
       </div>
-      <div class="info-key">{{detailInfo.detailImage[0].key}}</div>
-      <div class="info-list">
-        <img v-for="(item, index) in detailInfo.detailImage[0].list" 
-        :src="item|Imgfilter" :key="index" alt="" @load="imgLoad">
+      <div class="desc">{{detailInfo.desc}}</div>
+      <div class="end"></div>
+    </div>
+    <div class="info-key">{{detailInfo.detailImage[0].key}}</div>
+    <div class="info-list">
+      <img v-for="(item, index) in detailInfo.detailImage[0].list" :key="index" :src="item" @load="imgLoad" alt="">
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'DetailGoodsInfo',
-  props:{
-      detailInfo:{
-          type: Object,
-          default(){
-              return {};
-          }
+	export default {
+		name: "DetailGoodsInfo",
+    props: {
+      detailInfo: {
+        type: Object
       }
-  },
-  
-  filters:{
-      Imgfilter: function(value){
-          return "http:" + value
+    },
+    data() {
+			return {
+				counter: 0,
+        imagesLength: 0
       }
-  },
-  computed:{
-    showImage(item){
-        return "http:" + item;
+    },
+    methods: {
+	    imgLoad() {
+        // 判断, 所有的图片都加载完了, 那么进行一次回调就可以了.
+        if (++this.counter === this.imagesLength) {
+          this.$emit('imageLoad');
+        }
+	    }
+    },
+    watch: {
+	    detailInfo() {
+	      // 获取图片的个数
+	    	this.imagesLength = this.detailInfo.detailImage[0].list.length
+	    }
     }
-  },
-  data() { 
-    return {
-        counter: 0,
-        imagesLength: 0,
-        MyTopImages: [],
-    }
-  },
-  //防止详情页内图片加载不完全而导致的better-scroll插件滚动中断
-  // methods:{
-  //     imgLoad(){
-  //         if(++this.counter === this.imagesLength){
-  //             this.$emit('imageLoad');
-  //         }
-  //     }
-  // },
-  // watch:{
-  //     detailInfo(){
-  //         this.imagesLength = this.detailInfo.detailImage[0].list.length;
-  //     }
-  // }
-
-  methods:{
-    imgLoad(){
-      //console.log('加载DetailGoodsInfo');
-      this.$emit('detailImageLoad');
-    }
-  } ,
-  //  created() {
-  //    if(Object.keys(this.detailInfo).length !== 0){
-  //     this.MyTopImages = this.detailInfo.detailImage[0].list;
-  //     for(let i = 0; i < this.MyTopImages.length; i++){
-  //         this.MyTopImages[i] = "http:" + this.MyTopImages[i];
-  //     }
-  //    }
-
-  //     console.log(this.MyTopImages);
-  // }
- }
+	}
 </script>
 
 <style scoped>
