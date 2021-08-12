@@ -1,7 +1,7 @@
 <template>
   <div class="shop-info">
     <div class="shop-top">
-      <img :src="showImage">
+      <img :src="shop.logo">
       <span class="title">{{shop.name}}</span>
     </div>
     <div class="shop-middle">
@@ -34,39 +34,26 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'DetailShopInfo',
-  props:{
-      shop:{
-          type: Object,
-          default(){
-              return {}
-          }
-      }
-  },
-  data() { 
-    return {
 
-    }
-  },
-  computed:{
-    showImage(){
-        return "http:" + this.shop.logo;
-    }
-  },
+<script>
+	export default {
+		name: "DetailShopInfo",
+    props: {
+		  shop: {
+		    type: Object,
+        default() {
+		      return {}
+        }
+      }
+    },
     filters: {
-        sellCountFilter: function (value) {
+      sellCountFilter: function (value) {
         if (value < 10000) return value;
         return (value/10000).toFixed(1) + '万'
-        }
-    },
-    mounted(){
-      // console.log(this.shop);
+      }
     }
- }
+	}
 </script>
-
 
 <style scoped>
   .shop-info {

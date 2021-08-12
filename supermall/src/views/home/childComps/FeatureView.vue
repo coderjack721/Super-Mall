@@ -1,18 +1,19 @@
 <template>
   <div class="feature">
-      <a href="https://act.mogujie.com/zzlx67">
-      <img src="~assets/img/home/recommend_bg.jpg" alt=""></a>
+    <a href="https://act.mogujie.com/zzlx67">
+      <img src="~assets/img/home/recommend_bg.jpg" alt="">
+    </a>
   </div>
 </template>
 
 <script>
-export default {
-    name:"FeatureView"
-}
+  export default {
+    name: "Feature"
+  }
 </script>
 
-<style>
-.feature img{
+<style scoped>
+  .feature img{
     width: 100%;
-}
+  }
 </style>

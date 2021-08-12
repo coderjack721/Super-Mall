@@ -1,59 +1,66 @@
 <template>
-    <div class="tab-bar-item" @click="itemClick">
-        <slot v-if="!isActive" name="item-icon"></slot>
-        <slot v-else name="item-icon-active"></slot>      
-        <div :style="activeStyle"><slot name="item-text"></slot></div>
+  <div class="tab-bar-item" @click="itemClick">
+    <div v-if="!isActive">
+      <slot name="item-icon"></slot>
     </div>
-</template>
+   <div v-else>
+     <slot name="item-icon-active"></slot>
+   </div>
+    <div :style="activeStyle">
+      <slot name="item-text"></slot>
+    </div>
+  </div>
+  </template>
 
 <script>
-export default {
-    name:"TabBarItem",
+  export default {
+    name: "TabBarItem",
+    /*父传子*/
     props:{
-        path: String,
-        activeColor: String,
-        default:"red"
+      path:String,
+      activeColor:{
+        type:String,
+        default:'red'
+      }
     },
-    data(){
-        return{
-            // isActive:true
-        }
+    data() {
+      return {
+        //isActive: false
+      }
     },
     computed:{
-        isActive(){
-            return this.$route.path.indexOf(this.path) !== -1
-            //indexOf查找该路径，找到值为1，找不到为-1
-        },
-        activeStyle(){
-            return this.isActive ? {color: this.activeColor} : {}
-        }
+      isActive(){
+       return  this.$route.path.indexOf(this.path) !== -1;
+      },
+      activeStyle(){
+        return this.isActive ? {color:this.activeColor}:{}
+      }
     },
     methods:{
-        itemClick(){
-            // console.log('itemClick');
-            this.$router.replace(this.path)
+      itemClick(){
+        if(this.$route.path == this.path){
+          //console.log("哈哈")
+          return;
         }
+        this.$router.replace(this.path)
+      }
     }
-}
+  }
 </script>
 
-<style>
-  .tab-bar-item{
+<style scoped>
+  .tab-bar-item {
     flex: 1;
     text-align: center;
     height: 49px;
     font-size: 14px;
   }
-  
-  .tab-bar-item img{
-    width: 24px;
-    height: 24px;
+  .tab-bar-item img {
+    width: 18px;
+    height: 18px;
     margin-top: 3px;
     vertical-align: middle;
     margin-bottom: 2px;
   }
-  
-  .active{
-      color: black;
-  }
+
 </style>
